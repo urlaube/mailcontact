@@ -1,0 +1,14 @@
+{
+  "Anfrage absenden"                                              : "send request",
+  "Captcha"                                                       : "captcha",
+  "Der Versand ist fehlgeschlagen!"                               : "The message could not be sent!",
+  "Der Versand war erfolgreich!"                                  : "The message has been sent!",
+  "E-Mail"                                                        : "e-mail",
+  "gesendet über"                                                 : "sent via",
+  "Nachricht"                                                     : "message",
+  "Nachricht gesendet über MailContact"                           : "Message sent via MailContact",
+  "Name"                                                          : "name",
+  "Nudelsuppe"                                                    : "noodle soup",
+  "Pflichtfelder sind mit * markiert."                            : "mandatory fields are marked with an *",
+  "Wähle den Begriff, der nicht passt: Freund, Feind, Nudelsuppe" : "Choose the term that does not fit: friend, enemy, noodle soup"
+}
