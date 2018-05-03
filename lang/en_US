@@ -1,9 +1,12 @@
 {
   "Anfrage absenden"                                              : "send request",
   "Captcha"                                                       : "captcha",
+  "Datenschutzerklärung"                                          : "Data Privacy Statement",
   "Der Versand ist fehlgeschlagen!"                               : "The message could not be sent!",
   "Der Versand war erfolgreich!"                                  : "The message has been sent!",
   "E-Mail"                                                        : "e-mail",
+  "Für die korrekte Funktionsweise dieses Kontaktformulars müssen die von Ihnen eingegebenen personenbezogenen Daten an den Betreiber dieser Webseite übermittelt werden. Durch Verwendung des Kontaktformulars stimmen Sie der Übermittlung und Speicherung der von Ihnen eingegebenen personenbezogenen Daten zu. Die Daten werden verwendet, um auf Ihre Kontaktanfrage reagieren zu können."
+                                                                  : "For the correct functioning of this contact form, the personal data entered by you must be transmitted to the operator of this website. By using the contact form, you consent to the transmission and storage of the personal data you have entered. The data will be used to respond to your contact request.",
   "gesendet über"                                                 : "sent via",
   "Nachricht"                                                     : "message",
   "Nachricht gesendet über MailContact"                           : "Message sent via MailContact",

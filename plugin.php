@@ -7,7 +7,7 @@
     of a contact form.
 
     @package urlaube\mailcontact
-    @version 0.1a0
+    @version 0.1a1
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -69,6 +69,10 @@
                   html(Plugins::get("mailcontact_question"))."</label><br>".NL.
                   "    <input autocomplete=\"nope\" id=\"mailcontact-captcha\" name=\"captcha\"".
                   " required=\"required\" type=\"text\">".NL.
+                  "  </p>".NL.
+                  "  <p class=\"mailcontact-gdpr\">".NL.
+                  "    <span class=\"mailcontact-gdpr-label\">".html(gl("Datenschutzerklärung"))."</span><br>".NL.
+                  "    ".html(gl("Für die korrekte Funktionsweise dieses Kontaktformulars müssen die von Ihnen eingegebenen personenbezogenen Daten an den Betreiber dieser Webseite übermittelt werden. Durch Verwendung des Kontaktformulars stimmen Sie der Übermittlung und Speicherung der von Ihnen eingegebenen personenbezogenen Daten zu. Die Daten werden verwendet, um auf Ihre Kontaktanfrage reagieren zu können.")).NL.
                   "  </p>".NL.
                   "  <div class=\"alert alert-danger\" id=\"mailcontact-failure-alert\">".
                   html(gl("Der Versand ist fehlgeschlagen!"))."</div>".NL.
