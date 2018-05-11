@@ -1,4 +1,4 @@
-// react on mailcontact anchors 
+// react on mailcontact anchors
 if (window.location.hash) {
   var hash = window.location.hash.substring(1);
 
@@ -12,4 +12,5 @@ if (window.location.hash) {
       element.style.display = "block";
     }
   }
-} 
+}
+
