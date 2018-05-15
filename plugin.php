@@ -7,7 +7,7 @@
     of a contact form.
 
     @package urlaube\mailcontact
-    @version 0.1a1
+    @version 0.1a2
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -50,7 +50,7 @@
           $form = "<link href=\"".html(path2uri(__DIR__."/css/style.css"))."\" rel=\"stylesheet\">".NL.
                   "<p id=\"mailcontact-failure\"></p>".NL.
                   "<p id=\"mailcontact-success\"></p>".NL.
-                  "<form action=\"".html(Main::ROOTURI()."contact/")."\" id=\"mailcontact\" method=\"post\">".NL.
+                  "<form action=\"".html(Main::ROOTURI()."mailcontact/")."\" id=\"mailcontact\" method=\"post\">".NL.
                   "  <p class=\"mailcontact-author\">".NL.
                   "    <label for=\"mailcontact-author\">".html(gl("Name"))."*</label><br>".NL.
                   "    <input id=\"mailcontact-author\" name=\"author\" required=\"required\" type=\"text\">".NL.
@@ -163,6 +163,7 @@
       public function plugin() {
         $result = false;
 
+        // preset plugin configuration
         $this->configure();
 
         if (Main::CONTENT() instanceof Content) {
@@ -199,7 +200,7 @@
     $plugin->setTranslationsPath(__DIR__.DS."lang".DS);
 
     // register handler
-    Handlers::register($plugin, "handler", "@\/contact\/@", [POST]);
+    Handlers::register($plugin, "handler", "@\/mailcontact\/@", [POST]);
 
     // register plugin
     Plugins::register($plugin, "plugin", BEFORE_THEME);
