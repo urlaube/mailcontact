@@ -7,7 +7,7 @@
     of a contact form.
 
     @package urlaube\mailcontact
-    @version 0.1a2
+    @version 0.1a3
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -23,7 +23,30 @@
   use PHPMailer\PHPMailer\SMTP;
 
   if (!class_exists("MailContact")) {
-    class MailContact extends Translatable {
+    class MailContact extends Translatable implements Handler, Plugin, Translation {
+
+      // INTERFACE FUNCTIONS
+
+      public static function getContent($info) {
+        return null;
+      }
+
+      public static function getUri($info) {
+        return Main::ROOTURI()."mailcontact".US;
+      }
+
+      public static function parseUri($uri) {
+        $result = null;
+
+        if (is_string($uri)) {
+          if (1 === preg_match("@\/mailcontact\/@",
+                               $uri, $matches)) {
+            $result = array();
+          }
+        }
+
+        return $result;
+      }
 
       // HELPER FUNCTIONS
 
@@ -123,33 +146,33 @@
       // RUNTIME FUNCTIONS
 
       public function handler() {
-        $result = null;
+        $result = false;
 
-        // preset plugin configuration
-        $this->configure();
+        $info = static::parseUri(Main::RELATIVEURI());
+        if (null !== $info) {
+          // check if the request comes from the website itself
+          if (isset($_POST["referer"]) &&
+              isset($_SERVER["HTTP_REFERER"])) {
+            if (0 === strcmp(Main::PROTOCOL().Main::HOSTNAME().$_POST["referer"], $_SERVER["HTTP_REFERER"])) {
+              // check if the captcha is correct
+              if (isset($_POST["captcha"])) {
+                if (0 === strcasecmp(Plugins::get("mailcontact_answer"), trim($_POST["captcha"]))) {
+                  // check if all mandatory fields are given
+                  if (isset($_POST["author"]) &&
+                      isset($_POST["email"]) &&
+                      isset($_POST["message"])) {
+                    // handle message
+                    $result = $this->sendMail($_POST["author"],
+                                              $_POST["email"],
+                                              $_POST["message"],
+                                              $_SERVER["HTTP_REFERER"]);
 
-        // check if the request comes from the website itself
-        if (isset($_POST["referer"]) &&
-            isset($_SERVER["HTTP_REFERER"])) {
-          if (0 === strcmp(Main::PROTOCOL().Main::HOSTNAME().$_POST["referer"], $_SERVER["HTTP_REFERER"])) {
-            // check if the captcha is correct
-            if (isset($_POST["captcha"])) {
-              if (0 === strcasecmp(Plugins::get("mailcontact_answer"), trim($_POST["captcha"]))) {
-                // check if all mandatory fields are given
-                if (isset($_POST["author"]) &&
-                    isset($_POST["email"]) &&
-                    isset($_POST["message"])) {
-                  // handle message
-                  $result = $this->sendMail($_POST["author"],
-                                            $_POST["email"],
-                                            $_POST["message"],
-                                            $_SERVER["HTTP_REFERER"]);
-
-                  // redirect to previous page
-                  if ($result) {
-                    redirect($_POST["referer"]."#mailcontact-success", true);
-                  } else {
-                    redirect($_POST["referer"]."#mailcontact-failure", true);
+                    // redirect to previous page
+                    if ($result) {
+                      redirect($_POST["referer"]."#mailcontact-success", true);
+                    } else {
+                      redirect($_POST["referer"]."#mailcontact-failure", true);
+                    }
                   }
                 }
               }
@@ -160,7 +183,7 @@
         return $result;
       }
 
-      public function plugin() {
+      public function plugin($argument) {
         $result = false;
 
         // preset plugin configuration
@@ -200,7 +223,9 @@
     $plugin->setTranslationsPath(__DIR__.DS."lang".DS);
 
     // register handler
-    Handlers::register($plugin, "handler", "@\/mailcontact\/@", [POST]);
+    Handlers::register($plugin, "handler",
+                       "@\/mailcontact\/@",
+                       [POST], USER);
 
     // register plugin
     Plugins::register($plugin, "plugin", BEFORE_THEME);
