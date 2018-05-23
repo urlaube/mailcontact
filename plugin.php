@@ -7,7 +7,7 @@
     of a contact form.
 
     @package urlaube\mailcontact
-    @version 0.1a3
+    @version 0.1a4
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -183,28 +183,26 @@
         return $result;
       }
 
-      public function plugin($argument) {
-        $result = false;
+      public function plugin($content) {
+        $result = $content;
 
         // preset plugin configuration
         $this->configure();
 
-        if (Main::CONTENT() instanceof Content) {
-          if (Main::CONTENT()->isset(CONTENT)) {
-            Main::CONTENT()->set(CONTENT, $this->getForm(Main::CONTENT()->get(CONTENT)));
-
-            $result = true;
+        if ($result instanceof Content) {
+          if ($result->isset(CONTENT)) {
+            $result->set(CONTENT, $this->getForm($result->get(CONTENT)));
           }
         } else {
-          if (is_array(Main::CONTENT())) {
+          if (is_array($result)) {
             // iterate through all content items
-            foreach (Main::CONTENT() as $content_item) {
-              if ($content_item->isset(CONTENT)) {
-                $content_item->set(CONTENT, $this->getForm($content_item->get(CONTENT)));
+            foreach ($result as $result_item) {
+              if ($result_item instanceof Content) {
+                if ($result_item->isset(CONTENT)) {
+                  $result_item->set(CONTENT, $this->getForm($result_item->get(CONTENT)));
+                }
               }
             }
-
-            $result = true;
           }
         }
 
@@ -228,6 +226,6 @@
                        [POST], USER);
 
     // register plugin
-    Plugins::register($plugin, "plugin", BEFORE_THEME);
+    Plugins::register($plugin, "plugin", FILTER_CONTENT);
   }
 

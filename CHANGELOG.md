@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1a4 (23.05.2018)
+### Bugfixes
+* now checks for each array entry if it is an instance of `Content`
+### Features
+* updated plugin to use the new `FILTER_CONTENT` event
+
 ## 0.1a3 (21.05.2018)
 ### Features
 * updated code to match current alpha-state of Urlau.be core
