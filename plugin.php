@@ -7,7 +7,7 @@
     of a contact form.
 
     @package urlaube\mailcontact
-    @version 0.1a4
+    @version 0.1a5
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -147,6 +147,9 @@
 
       public function handler() {
         $result = false;
+
+        // preset plugin configuration
+        $this->configure();
 
         $info = static::parseUri(Main::RELATIVEURI());
         if (null !== $info) {

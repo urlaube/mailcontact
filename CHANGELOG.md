@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1a5 (26.05.2018)
+### Bugfixes
+* fixed the `handler()` function that now also presets the configuration again
+
 ## 0.1a4 (23.05.2018)
 ### Bugfixes
 * now checks for each array entry if it is an instance of `Content`
