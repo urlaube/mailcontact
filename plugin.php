@@ -219,7 +219,7 @@
     require_once(__DIR__."/vendors/phpmailer/PHPMailer.php");
     require_once(__DIR__."/vendors/phpmailer/SMTP.php");
 
-    // instantiate translatable handler
+    // instantiate translatable plugin
     $plugin = new MailContact();
     $plugin->setTranslationsPath(__DIR__.DS."lang".DS);
 
