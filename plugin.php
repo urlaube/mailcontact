@@ -7,7 +7,7 @@
     of a contact form.
 
     @package urlaube\mailcontact
-    @version 0.1a6
+    @version 0.1a7
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -174,6 +174,9 @@
           if (isset($_POST["referer"]) &&
               isset($_SERVER["HTTP_REFERER"])) {
             if (0 === strcmp(Main::PROTOCOL().Main::HOSTNAME().$_POST["referer"], $_SERVER["HTTP_REFERER"])) {
+              // at least we can handle this request
+              $success = false;
+
               // check if the captcha is correct
               if (isset($_POST["captcha"])) {
                 if (0 === strcasecmp(Plugins::get("mailcontact_answer"), trim($_POST["captcha"]))) {
@@ -182,20 +185,23 @@
                       isset($_POST["email"]) &&
                       isset($_POST["message"])) {
                     // handle message
-                    $result = static::sendMail($_POST["author"],
-                                               $_POST["email"],
-                                               $_POST["message"],
-                                               $_SERVER["HTTP_REFERER"]);
-
-                    // redirect to previous page
-                    if ($result) {
-                      redirect($_POST["referer"]."#mailcontact-success", true);
-                    } else {
-                      redirect($_POST["referer"]."#mailcontact-failure", true);
-                    }
+                    $success = static::sendMail($_POST["author"],
+                                                $_POST["email"],
+                                                $_POST["message"],
+                                                $_SERVER["HTTP_REFERER"]);
                   }
                 }
               }
+
+              // redirect to previous page
+              if ($success) {
+                redirect($_POST["referer"]."#mailcontact-success", true);
+              } else {
+                redirect($_POST["referer"]."#mailcontact-failure", true);
+              }
+
+              // we're done
+              $result = true;
             }
           }
         }

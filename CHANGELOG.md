@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1a7 (02.06.2018)
+### Bugfixes
+* rewrites work properly now when an error during the submission occurs
+
 ## 0.1a6 (02.06.2018)
 ### Feature
 * rewrote to use the new translation mechanism of Urlaube 0.1a4
