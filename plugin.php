@@ -52,8 +52,8 @@
 
       protected static function configure() {
         // captcha configuration
-        Plugins::preset("mailcontact_question", t("Wähle den Begriff, der nicht passt: Freund, Feind, Nudelsuppe", "MailContact")));
-        Plugins::preset("mailcontact_answer",   t("Nudelsuppe", "MailContact")));
+        Plugins::preset("mailcontact_question", t("Wähle den Begriff, der nicht passt: Freund, Feind, Nudelsuppe", "MailContact"));
+        Plugins::preset("mailcontact_answer",   t("Nudelsuppe", "MailContact"));
 
         // SMTP configuration
         Plugins::preset("mailcontact_host",      "localhost");
@@ -61,7 +61,7 @@
         Plugins::preset("mailcontact_port",      587);
         Plugins::preset("mailcontact_recipient", "root@localhost");
         Plugins::preset("mailcontact_sender",    "urlaube@localhost");
-        Plugins::preset("mailcontact_subject",   t("Nachricht gesendet über MailContact", "MailContact")));
+        Plugins::preset("mailcontact_subject",   t("Nachricht gesendet über MailContact", "MailContact"));
         Plugins::preset("mailcontact_username",  "anonymous");
       }
 
