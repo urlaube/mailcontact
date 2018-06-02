@@ -23,7 +23,7 @@
   use PHPMailer\PHPMailer\SMTP;
 
   if (!class_exists("MailContact")) {
-    class MailContact extends Translatable implements Handler, Plugin, Translation {
+    class MailContact extends Base implements Handler, Plugin {
 
       // INTERFACE FUNCTIONS
 
@@ -50,10 +50,10 @@
 
       // HELPER FUNCTIONS
 
-      protected function configure() {
+      protected static function configure() {
         // captcha configuration
-        Plugins::preset("mailcontact_question", gl("Wähle den Begriff, der nicht passt: Freund, Feind, Nudelsuppe"));
-        Plugins::preset("mailcontact_answer",   gl("Nudelsuppe"));
+        Plugins::preset("mailcontact_question", t("Wähle den Begriff, der nicht passt: Freund, Feind, Nudelsuppe", "MailContact")));
+        Plugins::preset("mailcontact_answer",   t("Nudelsuppe", "MailContact")));
 
         // SMTP configuration
         Plugins::preset("mailcontact_host",      "localhost");
@@ -61,54 +61,64 @@
         Plugins::preset("mailcontact_port",      587);
         Plugins::preset("mailcontact_recipient", "root@localhost");
         Plugins::preset("mailcontact_sender",    "urlaube@localhost");
-        Plugins::preset("mailcontact_subject",   gl("Nachricht gesendet über MailContact"));
+        Plugins::preset("mailcontact_subject",   t("Nachricht gesendet über MailContact", "MailContact")));
         Plugins::preset("mailcontact_username",  "anonymous");
       }
 
-      protected function getForm($content) {
+      protected static function getForm($content) {
         $result = $content;
 
         if (is_string($result)) {
           // generate form source code
-          $form = "<link href=\"".html(path2uri(__DIR__."/css/style.css"))."\" rel=\"stylesheet\">".NL.
-                  "<p id=\"mailcontact-failure\"></p>".NL.
-                  "<p id=\"mailcontact-success\"></p>".NL.
-                  "<form action=\"".html(Main::ROOTURI()."mailcontact/")."\" id=\"mailcontact\" method=\"post\">".NL.
-                  "  <p class=\"mailcontact-author\">".NL.
-                  "    <label for=\"mailcontact-author\">".html(gl("Name"))."*</label><br>".NL.
-                  "    <input id=\"mailcontact-author\" name=\"author\" required=\"required\" type=\"text\">".NL.
-                  "  </p>".NL.
-                  "  <p class=\"mailcontact-email\">".NL.
-                  "    <label for=\"mailcontact-email\">".html(gl("E-Mail"))."*</label><br>".NL.
-                  "    <input id=\"mailcontact-email\" name=\"email\" required=\"required\" type=\"email\">".NL.
-                  "  </p>".NL.
-                  "  <p class=\"mailcontact-message\">".NL.
-                  "    <label for=\"mailcontact-message\">".html(gl("Nachricht"))."*</label><br>".NL.
-                  "    <textarea autocomplete=\"nope\" id=\"mailcontact-message\" name=\"message\"".
-                  " required=\"required\"></textarea>".NL.
-                  "  </p>".NL.
-                  "  <p class=\"mailcontact-captcha\">".NL.
-                  "    <label for=\"mailcontact-captcha\">(".html(gl("Captcha"))."*) ".
-                  html(Plugins::get("mailcontact_question"))."</label><br>".NL.
-                  "    <input autocomplete=\"nope\" id=\"mailcontact-captcha\" name=\"captcha\"".
-                  " required=\"required\" type=\"text\">".NL.
-                  "  </p>".NL.
-                  "  <p class=\"mailcontact-gdpr\">".NL.
-                  "    <span class=\"mailcontact-gdpr-label\">".html(gl("Datenschutzerklärung"))."</span><br>".NL.
-                  "    ".html(gl("Für die korrekte Funktionsweise dieses Kontaktformulars müssen die von Ihnen eingegebenen personenbezogenen Daten an den Betreiber dieser Webseite übermittelt werden. Durch Verwendung des Kontaktformulars stimmen Sie der Übermittlung und Speicherung der von Ihnen eingegebenen personenbezogenen Daten zu. Die Daten werden verwendet, um auf Ihre Kontaktanfrage reagieren zu können.")).NL.
-                  "  </p>".NL.
-                  "  <div class=\"alert alert-danger\" id=\"mailcontact-failure-alert\">".
-                  html(gl("Der Versand ist fehlgeschlagen!"))."</div>".NL.
-                  "  <div class=\"alert alert-success\" id=\"mailcontact-success-alert\">".
-                  html(gl("Der Versand war erfolgreich!"))."</div>".NL.
-                  "  <p class=\"mailcontact-submit\">".NL.
-                  "    <input id=\"mailcontact-submit\" name=\"submit\" type=\"submit\" value=\"".
-                  html(gl("Anfrage absenden"))."\">".NL.
-                  "    <input name=\"referer\" type=\"hidden\" value=\"".html(Main::URI())."\">".NL.
-                  "  </p>".NL.
-                  "  <p class=\"mailcontact-info\">".gl("Pflichtfelder sind mit * markiert.")."</p>".NL.
-                  "</form>".NL.
-                  "<script src=\"".html(path2uri(__DIR__."/js/script.js"))."\"></script>";
+          $form = tfhtml("<link href=\"%s\" rel=\"stylesheet\">".NL.
+                         "<p id=\"mailcontact-failure\"></p>".NL.
+                         "<p id=\"mailcontact-success\"></p>".NL.
+                         "<form action=\"%s\" id=\"mailcontact\" method=\"post\">".NL.
+                         "  <p class=\"mailcontact-author\">".NL.
+                         "    <label for=\"mailcontact-author\">%s*</label><br>".NL.
+                         "    <input id=\"mailcontact-author\" name=\"author\" required=\"required\" type=\"text\">".NL.
+                         "  </p>".NL.
+                         "  <p class=\"mailcontact-email\">".NL.
+                         "    <label for=\"mailcontact-email\">%s*</label><br>".NL.
+                         "    <input id=\"mailcontact-email\" name=\"email\" required=\"required\" type=\"email\">".NL.
+                         "  </p>".NL.
+                         "  <p class=\"mailcontact-message\">".NL.
+                         "    <label for=\"mailcontact-message\">%s*</label><br>".NL.
+                         "    <textarea autocomplete=\"nope\" id=\"mailcontact-message\" name=\"message\" required=\"required\"></textarea>".NL.
+                         "  </p>".NL.
+                         "  <p class=\"mailcontact-captcha\">".NL.
+                         "    <label for=\"mailcontact-captcha\">(%s*) %s</label><br>".NL.
+                         "    <input autocomplete=\"nope\" id=\"mailcontact-captcha\" name=\"captcha\" required=\"required\" type=\"text\">".NL.
+                         "  </p>".NL.
+                         "  <p class=\"mailcontact-gdpr\">".NL.
+                         "    <span class=\"mailcontact-gdpr-label\">%s</span><br>".NL.
+                         "    %s".NL.
+                         "  </p>".NL.
+                         "  <div class=\"alert alert-danger\" id=\"mailcontact-failure-alert\">%s</div>".NL.
+                         "  <div class=\"alert alert-success\" id=\"mailcontact-success-alert\">%s</div>".NL.
+                         "  <p class=\"mailcontact-submit\">".NL.
+                         "    <input name=\"referer\" type=\"hidden\" value=\"%s\">".NL.
+                         "    <input id=\"mailcontact-submit\" name=\"submit\" type=\"submit\" value=\"%s\">".NL.
+                         "  </p>".NL.
+                         "  <p class=\"mailcontact-info\">%s</p>".NL.
+                         "</form>".NL.
+                         "<script src=\"%s\"></script>",
+                         "MailContact",
+                         path2uri(__DIR__."/css/style.css"),
+                         Main::ROOTURI()."mailcontact/",
+                         "Name",
+                         "E-Mail",
+                         "Nachricht",
+                         "Captcha",
+                         Plugins::get("mailcontact_question"),
+                         "Datenschutzerklärung",
+                         "[DATENSCHUTZERKLÄRUNG]",
+                         "Der Versand ist fehlgeschlagen!",
+                         "Der Versand war erfolgreich!",
+                         Main::URI(),
+                         "Anfrage absenden",
+                         "Pflichtfelder sind mit * markiert.",
+                         path2uri(__DIR__."/js/script.js"));
 
           // replace shortcode with form
           $result = str_ireplace("[mailcontact]", $form, $result);
@@ -136,7 +146,14 @@
 
         // configure content
         $phpmailer->isHTML(false);
-        $phpmailer->Body    = $author." <".$email."> ".gl("gesendet über")." ".$via.":".NL.NL.$message;
+        $phpmailer->Body    = sprintf("%s <%s> %s %s".NL.
+                                      NL.
+                                      "%s",
+                                      $author,
+                                      $email,
+                                      t("gesendet über", "MailContact")),
+                                      $via,
+                                      $message;
         $phpmailer->CharSet = Main::CHARSET();
         $phpmailer->Subject = Plugins::get("mailcontact_subject");
 
@@ -145,11 +162,11 @@
 
       // RUNTIME FUNCTIONS
 
-      public function handler() {
+      public static function handler() {
         $result = false;
 
         // preset plugin configuration
-        $this->configure();
+        static::configure();
 
         $info = static::parseUri(Main::RELATIVEURI());
         if (null !== $info) {
@@ -165,10 +182,10 @@
                       isset($_POST["email"]) &&
                       isset($_POST["message"])) {
                     // handle message
-                    $result = $this->sendMail($_POST["author"],
-                                              $_POST["email"],
-                                              $_POST["message"],
-                                              $_SERVER["HTTP_REFERER"]);
+                    $result = static::sendMail($_POST["author"],
+                                               $_POST["email"],
+                                               $_POST["message"],
+                                               $_SERVER["HTTP_REFERER"]);
 
                     // redirect to previous page
                     if ($result) {
@@ -186,15 +203,15 @@
         return $result;
       }
 
-      public function plugin($content) {
+      public static function plugin($content) {
         $result = $content;
 
         // preset plugin configuration
-        $this->configure();
+        static::configure();
 
         if ($result instanceof Content) {
           if ($result->isset(CONTENT)) {
-            $result->set(CONTENT, $this->getForm($result->get(CONTENT)));
+            $result->set(CONTENT, static::getForm($result->get(CONTENT)));
           }
         } else {
           if (is_array($result)) {
@@ -202,7 +219,7 @@
             foreach ($result as $result_item) {
               if ($result_item instanceof Content) {
                 if ($result_item->isset(CONTENT)) {
-                  $result_item->set(CONTENT, $this->getForm($result_item->get(CONTENT)));
+                  $result_item->set(CONTENT, static::getForm($result_item->get(CONTENT)));
                 }
               }
             }
@@ -219,16 +236,15 @@
     require_once(__DIR__."/vendors/phpmailer/PHPMailer.php");
     require_once(__DIR__."/vendors/phpmailer/SMTP.php");
 
-    // instantiate translatable plugin
-    $plugin = new MailContact();
-    $plugin->setTranslationsPath(__DIR__.DS."lang".DS);
-
     // register handler
-    Handlers::register($plugin, "handler",
+    Handlers::register("MailContact", "handler",
                        "@\/mailcontact\/@",
                        [POST], USER);
 
     // register plugin
-    Plugins::register($plugin, "plugin", FILTER_CONTENT);
+    Plugins::register("MailContact", "plugin", FILTER_CONTENT);
+
+    // register translation
+    Translate::register(__DIR__.DS."lang".DS, "MailContact");
   }
 

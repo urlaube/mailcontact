@@ -10,8 +10,8 @@ To configure the plugin you can change the corresponding settings in your config
 ### CAPTCHA
 You can set the question and answer of the CAPTCHA:
 ```
-Config::PLUGIN("mailcontact_question", gl("Wähle den Begriff, der nicht passt: Freund, Feind, Nudelsuppe"));
-Config::PLUGIN("mailcontact_answer",   gl("Nudelsuppe"));
+Config::PLUGIN("mailcontact_question", t("Wähle den Begriff, der nicht passt: Freund, Feind, Nudelsuppe", "MailContact"));
+Config::PLUGIN("mailcontact_answer",   t("Nudelsuppe", "MailContact"));
 ```
 
 ### SMTP mail server configuration
@@ -28,6 +28,6 @@ Config::PLUGIN("mailcontact_username",  "anonymous");
 ### Mail subject text
 You can overwrite subject text of the sent mail:
 ```
-Config::PLUGIN("mailcontact_subject", gl("Nachricht gesendet über MailContact"));
+Config::PLUGIN("mailcontact_subject", t("Nachricht gesendet über MailContact", "MailContact"));
 ```
 
