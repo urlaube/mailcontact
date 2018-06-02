@@ -151,7 +151,7 @@
                                       "%s",
                                       $author,
                                       $email,
-                                      t("gesendet über", "MailContact")),
+                                      t("gesendet über", "MailContact"),
                                       $via,
                                       $message;
         $phpmailer->CharSet = Main::CHARSET();
