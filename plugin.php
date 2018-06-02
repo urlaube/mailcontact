@@ -153,7 +153,7 @@
                                       $email,
                                       t("gesendet über", "MailContact"),
                                       $via,
-                                      $message;
+                                      $message);
         $phpmailer->CharSet = Main::CHARSET();
         $phpmailer->Subject = Plugins::get("mailcontact_subject");
 
