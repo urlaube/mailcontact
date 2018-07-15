@@ -7,7 +7,7 @@
     of a contact form.
 
     @package urlaube\mailcontact
-    @version 0.1a7
+    @version 0.1a8
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -217,7 +217,7 @@
 
         if ($result instanceof Content) {
           if ($result->isset(CONTENT)) {
-            $result->set(CONTENT, static::getForm($result->get(CONTENT)));
+            $result->set(CONTENT, static::getForm(value($result, CONTENT)));
           }
         } else {
           if (is_array($result)) {
@@ -225,7 +225,7 @@
             foreach ($result as $result_item) {
               if ($result_item instanceof Content) {
                 if ($result_item->isset(CONTENT)) {
-                  $result_item->set(CONTENT, static::getForm($result_item->get(CONTENT)));
+                  $result_item->set(CONTENT, static::getForm(value($result_item, CONTENT)));
                 }
               }
             }

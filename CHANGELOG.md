@@ -1,11 +1,15 @@
 # Changelog
 
+## 0.1a8 (15.07.2018)
+### Features
+* rewrote to use the new `value()` function of the Urlaube core
+
 ## 0.1a7 (02.06.2018)
 ### Bugfixes
 * rewrites work properly now when an error during the submission occurs
 
 ## 0.1a6 (02.06.2018)
-### Feature
+### Features
 * rewrote to use the new translation mechanism of Urlaube 0.1a4
 
 ## 0.1a5 (26.05.2018)
