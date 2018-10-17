@@ -10,24 +10,23 @@ To configure the plugin you can change the corresponding settings in your config
 ### CAPTCHA
 You can set the question and answer of the CAPTCHA:
 ```
-Config::PLUGIN("mailcontact_question", t("Wähle den Begriff, der nicht passt: Freund, Feind, Nudelsuppe", "MailContact"));
-Config::PLUGIN("mailcontact_answer",   t("Nudelsuppe", "MailContact"));
+Plugins::set("mailcontact_question", t("Wähle den Begriff, der nicht passt: Freund, Feind, Nudelsuppe", MailContact::class));
+Plugins::set("mailcontact_answer",   t("Nudelsuppe", MailContact::class));
 ```
 
 ### SMTP mail server configuration
 You can set the SMTP mail server configuration:
 ```
-Config::PLUGIN("mailcontact_host",      "localhost");
-Config::PLUGIN("mailcontact_password",  "");
-Config::PLUGIN("mailcontact_port",      587);
-Config::PLUGIN("mailcontact_recipient", "root@localhost");
-Config::PLUGIN("mailcontact_sender",    "urlaube@localhost");
-Config::PLUGIN("mailcontact_username",  "anonymous");
+Plugins::set("mailcontact_host",      "localhost");
+Plugins::set("mailcontact_password",  "");
+Plugins::set("mailcontact_port",      587);
+Plugins::set("mailcontact_recipient", "root@localhost");
+Plugins::set("mailcontact_sender",    "urlaube@localhost");
+Plugins::set("mailcontact_username",  "anonymous");
 ```
 
 ### Mail subject text
 You can overwrite subject text of the sent mail:
 ```
-Config::PLUGIN("mailcontact_subject", t("Nachricht gesendet über MailContact", "MailContact"));
+Plugins::set("mailcontact_subject", t("Nachricht gesendet über MailContact", MailContact::class));
 ```
-

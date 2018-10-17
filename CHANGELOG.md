@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1a9 (17.10.2018)
+### Features
+* updated plugin to be compatible with Urlaube 0.1a7
+
 ## 0.1a8 (15.07.2018)
 ### Features
 * rewrote to use the new `value()` function of the Urlaube core
@@ -39,4 +43,3 @@
 ## 0.1a0 (11.03.2018)
 ### Features
 * initial version
-
