@@ -4,6 +4,9 @@
 ### Features
 * updated plugin to be compatible with Urlaube 0.1a7
 
+### Bugfixes
+* fixed line breaks and trailing whitspace
+
 ## 0.1a8 (15.07.2018)
 ### Features
 * rewrote to use the new `value()` function of the Urlaube core

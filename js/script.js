@@ -13,4 +13,3 @@ if (window.location.hash) {
     }
   }
 }
-
