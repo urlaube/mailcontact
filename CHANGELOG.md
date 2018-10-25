@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1a10 (25.10.2018)
+### Features
+* minor changes
+
 ## 0.1a9 (17.10.2018)
 ### Features
 * updated plugin to be compatible with Urlaube 0.1a7

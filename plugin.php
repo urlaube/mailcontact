@@ -7,7 +7,7 @@
     feature and a shortcode for the display of a contact form.
 
     @package urlaube\mailcontact
-    @version 0.1a9
+    @version 0.1a10
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
@@ -53,8 +53,8 @@
 
     protected static function configure() {
       // captcha configuration
-      Plugins::preset("mailcontact_question", t("Wähle den Begriff, der nicht passt: Freund, Feind, Nudelsuppe", MailContact::class));
-      Plugins::preset("mailcontact_answer",   t("Nudelsuppe", MailContact::class));
+      Plugins::preset("mailcontact_question", t("Wähle den Begriff, der nicht passt: Freund, Feind, Nudelsuppe", static::class));
+      Plugins::preset("mailcontact_answer",   t("Nudelsuppe", static::class));
 
       // SMTP configuration
       Plugins::preset("mailcontact_host",      "localhost");
@@ -62,7 +62,7 @@
       Plugins::preset("mailcontact_port",      587);
       Plugins::preset("mailcontact_recipient", "root@localhost");
       Plugins::preset("mailcontact_sender",    "urlaube@localhost");
-      Plugins::preset("mailcontact_subject",   t("Nachricht gesendet über MailContact", MailContact::class));
+      Plugins::preset("mailcontact_subject",   t("Nachricht gesendet über MailContact", static::class));
       Plugins::preset("mailcontact_username",  "anonymous");
     }
 
@@ -104,7 +104,7 @@
                        "  <p class=\"mailcontact-info\">%s</p>".NL.
                        "</form>".NL.
                        "<script src=\"%s\"></script>",
-                       MailContact::class,
+                       static::class,
                        path2uri(__DIR__."/css/style.css"),
                        static::getUri(new Content()),
                        "Name",
@@ -152,7 +152,7 @@
                                     "%s",
                                     $author,
                                     $email,
-                                    t("gesendet über", MailContact::class),
+                                    t("gesendet über", static::class),
                                     $via,
                                     $message);
       $phpmailer->CharSet = value(Main::class, CHARSET);
