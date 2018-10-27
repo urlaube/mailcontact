@@ -4,6 +4,9 @@
 ### Features
 * minor changes
 
+### Bugfixes
+* modified the handler so that redirect which correct the URI still retain the query string
+
 ## 0.1a9 (17.10.2018)
 ### Features
 * updated plugin to be compatible with Urlaube 0.1a7

@@ -174,7 +174,7 @@
         // check if the URI is correct
         $fixed = static::getUri($metadata);
         if (0 !== strcmp(value(Main::class, URI), $fixed)) {
-          relocate($fixed, false, true);
+          relocate($fixed.querystring(), false, true);
 
           // we handled this page
           $result = true;
