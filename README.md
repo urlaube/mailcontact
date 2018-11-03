@@ -30,3 +30,6 @@ You can overwrite subject text of the sent mail:
 ```
 Plugins::set("mailcontact_subject", t("Nachricht gesendet über MailContact", MailContact::class));
 ```
+
+## Usage
+To include the contact form on a page you have to use the `[mailcontact]` shortcode within the content. It will be replaced with the HTML sourcecode of the contact form.
