@@ -1,5 +1,5 @@
 # MailContact plugin
-The MailContact plugin is a contact form theme for [Urlaub.be](https://github.com/urlaube/urlaube) that is based on the [PHPMailer](https://github.com/PHPMailer/PHPMailer) library.
+The MailContact plugin is a contact form plugin for [Urlaub.be](https://github.com/urlaube/urlaube) that is based on the [PHPMailer](https://github.com/PHPMailer/PHPMailer) library.
 
 ## Installation
 Place the folder containing the plugin into your plugins directory located at `./user/plugins/`.
