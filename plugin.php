@@ -7,7 +7,7 @@
     feature and a shortcode for the display of a contact form.
 
     @package urlaube\mailcontact
-    @version 0.1a10
+    @version 0.1a11
     @author  Yahe <hello@yahe.sh>
     @since   0.1a0
   */
