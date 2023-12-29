@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1a12 (29.12.2023)
+### Security
+* updated [PHPMailer](https://github.com/PHPMailer/PHPMailer) to version 6.9.1
+
 ## 0.1a11 (22.09.2019)
 ### Security
 * updated [PHPMailer](https://github.com/PHPMailer/PHPMailer) to version 6.0.7
